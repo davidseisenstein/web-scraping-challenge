@@ -1,4 +1,13 @@
 def scrape():
+
+    import pandas as pd
+    import numpy as np
+    from bs4 import BeautifulSoup
+    import requests
+    #from splinter import Browser
+    from flask import Flask, render_template, redirect
+    import pymongo
+    import scrape_mars
     # Instantiate the dictionary that we will return
     return_dict = {}
     # Scrape nasa mars site
