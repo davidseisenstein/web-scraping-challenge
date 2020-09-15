@@ -18,12 +18,12 @@ db = client.mars
 
 @app.route("/")
 def index():
-    mars_data = db.mars.find_one()
-    return render_template("index.html", mars_data = mars_data)
+    mars_data = db.marsdata.find_one(sort=[( '_id', pymongo.DESCENDING )])
+    print(mars_data)
+    return render_template("index.html", data = mars_data)
 
 @app.route("/scrape")
 def scraper():
-    mars = db.mars
     mars_data = scrape_mars.scrape()
     db.marsdata.insert_one(mars_data)
     return redirect("/", code=302)

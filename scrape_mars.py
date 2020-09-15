@@ -29,7 +29,7 @@ def scrape():
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     # Fetch the URL for the image
-    baseurl = 'https://www.jpl.nasa.gov/spaceimages'
+    baseurl = 'https://www.jpl.nasa.gov'
 
     # I feel like there is an easier way to do this part, but it worked. Oh, i was supposed to use splinter.
     relativeurl = soup.find_all('article', class_='carousel_item')[0]['style'].split(' ')[1].split('(')[1].replace("'", '').replace(")", '').replace(";", '')
