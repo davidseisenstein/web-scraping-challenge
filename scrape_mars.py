@@ -64,12 +64,18 @@ def scrape():
     #let's loop through and create our dictionary
     for hemi in hemi_soup:
         hemi_name = hemi.h3.text.replace('Enhanced','').strip()
-        image_page = base_url + hemi['href']
-        print(hemi_name, image_page)
+        hemi_isolated = hemi_name.replace(' Hemisphere','').replace(' ','_')
+        inner_base = 'https://astrogeology.usgs.gov/search/map/Mars/Viking/'
+        inner_url = inner_base + hemi_isolated + '_enhanced'
+        inner_response = requests.get(inner_url)
+        inner_soup = BeautifulSoup(inner_response.text, 'html.parser')
+        image_page = base_url + inner_soup.find('img', class_ = 'wide-image')['src']
+        print(image_page)
+
         hemi_dict = {}
         hemi_dict['title'] = hemi_name
         hemi_dict['img_url'] = image_page
-        
+    
         hemis_list.append(hemi_dict)
 
     return_dict['hemis_list'] = hemis_list
